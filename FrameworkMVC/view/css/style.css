@@ -1,0 +1,176 @@
+ul#navigation {
+    position: relative;
+    margin: 0px;
+    padding: 0px;
+    top: 0px;
+    right: 0px;
+    list-style: none;
+    z-index:999999;
+    width:721px;
+}
+ul#navigation li {
+    width: 103px;
+    display:inline;
+    float:left;    
+}
+ul#navigation li a {
+    display: block;
+    float:left;
+    margin-top: -2px;
+    width: 80px;
+    height: 20px;
+    background-color:#E7F2F9;
+    background-repeat:no-repeat;
+    background-position:10% 15px;
+    border:1px solid #BDDCEF;
+    -moz-border-radius:0px 0px 10px 10px;
+    -webkit-border-bottom-right-radius: 10px;
+    -webkit-border-bottom-left-radius: 10px;
+    -khtml-border-bottom-right-radius: 10px;
+    -khtml-border-bottom-left-radius: 10px;
+    text-decoration:none;
+    text-align:center;
+    padding-top:50px;
+    opacity: 0.7;
+    filter:progid:DXImageTransform.Microsoft.Alpha(opacity=70);  
+}
+ul#navigation li a:hover{
+     background-color:#CAE3F2;
+}
+ul#navigation li a span{
+    letter-spacing:2px;
+    font-size:11px;
+    color:#60ACD8;
+    text-shadow: 0 -1px 1px #fff;      
+}
+ul#navigation .home a{
+    background-image: url(../images/home.png);
+}
+ul#navigation .about a      {
+    background-image: url(../images/id_card.png);
+}
+ul#navigation .search a      {
+    background-image: url(../images/search.png);
+}
+ul#navigation .podcasts a      {
+    background-image: url(../images/ipod.png);
+}
+ul#navigation .rssfeed a   {
+    background-image: url(../images/rss.png);
+}
+ul#navigation .photos a     {
+    background-image: url(../images/camera.png);
+}
+ul#navigation .contact a    {
+    background-image: url(../images/mail.png);
+}
+
+
+ul.sdt_menu{
+	margin:0;
+	padding:0;
+	list-style: none;
+	font-family:"Myriad Pro", "Trebuchet MS", sans-serif;
+	font-size:14px;
+	width:1020px;
+}
+ul.sdt_menu a{
+	text-decoration:none;
+	outline:none;
+}
+ul.sdt_menu li{
+	float:left;
+	width:255px;
+	height:85px;
+	position:relative;
+	cursor:pointer;
+}
+ul.sdt_menu li > a{
+	position:absolute;
+	top:0px;
+	left:0px;
+	width:170px;
+	height:85px;
+	z-index:12;
+	background:transparent url(..view/images/inicio/overlay.png) no-repeat bottom right;
+	-moz-box-shadow:0px 0px 2px #000 inset;
+	-webkit-box-shadow:0px 0px 2px #000 inset;
+	box-shadow:0px 0px 2px #000 inset;
+}
+ul.sdt_menu li a img{
+	border:none;
+	position:absolute;
+	width:0px;
+	height:0px;
+	bottom:0px;
+	left:85px;
+	z-index:100;
+	-moz-box-shadow:0px 0px 4px #000;
+	-webkit-box-shadow:0px 0px 4px #000;
+	box-shadow:0px 0px 4px #000;
+}
+ul.sdt_menu li span.sdt_wrap{
+	position:absolute;
+	top:25px;
+	left:0px;
+	width:170px;
+	height:60px;
+	z-index:15;
+}
+ul.sdt_menu li span.sdt_active{
+	position:absolute;
+	background:#111;
+	top:85px;
+	width:170px;
+	height:0px;
+	left:0px;
+	z-index:14;
+	-moz-box-shadow:0px 0px 4px #000 inset;
+	-webkit-box-shadow:0px 0px 4px #000 inset;
+	box-shadow:0px 0px 4px #000 inset;
+}
+ul.sdt_menu li span span.sdt_link,
+ul.sdt_menu li span span.sdt_descr,
+ul.sdt_menu li div.sdt_box a{
+	margin-left:15px;
+	text-transform:uppercase;
+	text-shadow:1px 1px 1px #000;
+}
+ul.sdt_menu li span span.sdt_link{
+	color:#fff;
+	font-size:20px;
+	float:left;
+	clear:both;
+}
+ul.sdt_menu li span span.sdt_descr{
+	color:#0B75AF;
+	float:left;
+	clear:both;
+	width:155px; /*For dumbass IE7*/
+	font-size:10px;
+	letter-spacing:1px;
+}
+ul.sdt_menu li div.sdt_box{
+	display:block;
+	position:absolute;
+	width:170px;
+	overflow-y:scroll;
+	height:170px;
+	top:85px;
+	left:0px;
+	display:none;
+	background:#000;
+	font-size:12px;
+}
+ul.sdt_menu li div.sdt_box a{
+	float:left;
+	clear:both;
+	line-height:30px;
+	color:#0B75AF;
+}
+ul.sdt_menu li div.sdt_box a:first-child{
+	margin-top:15px;
+}
+ul.sdt_menu li div.sdt_box a:hover{
+	color:#fff;
+}
