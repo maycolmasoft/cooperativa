@@ -55,18 +55,7 @@
 				 </div>
 				 </div>
             	
-            	 <div class="col-xs-6 col-md-6">
-		         <div class="form-group">
-		                                  <label for="id_ciudad" class="control-label">Ciudad</label>
-		                                  <select name="id_ciudad" id="id_ciudad"  class="form-control" >
-		                                        <option value="" selected="selected">--Seleccione--</option>
-											<?php foreach($resultCiu as $resCiu) {?>
-												<option value="<?php echo $resCiu->id_ciudad; ?>"  <?php if ($resCiu->id_ciudad == $resEdit->id_ciudad ) echo ' selected="selected" '  ; ?> ><?php echo $resCiu->nombre_ciudad; ?> </option>
-					       					<?php } ?>
-										  </select> 
-		                                  <span class="help-block"></span>
-		          </div>
-				  </div>
+            	 
 			   	  </div>
             
             	<div class="row">
