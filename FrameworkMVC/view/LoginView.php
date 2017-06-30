@@ -1,4 +1,4 @@
- <?php include("view/modulos/head.php"); ?>
+ <?php include("view/modulos/head_home.php"); ?>
   
 <!DOCTYPE html>
 <html>

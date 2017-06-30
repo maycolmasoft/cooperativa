@@ -593,10 +593,36 @@ public function index(){
 		
 	}
 	
-	public function MostrarMsg(){
-		return $this->Mensaje;
+	public function QuienesSomos()
+	{
+		session_start();
+		$resultado = "";
+	
+	
+	
+		$this->view("QuienesSomos",array(
+				"resultado"=>$resultado
+	
+		));
+	
+	
 	}
 	
+	public function PreguntasFrecuentes()
+	{
+		session_start();
+		$resultado = "";
+	
+	
+		$this->view("PreguntasFrecuentes",array(
+				"resultado"=>$resultado
+	
+	
+	
+		));
+	
+	
+	}
 		
 	
 }

@@ -9,7 +9,211 @@
           <link rel="stylesheet" href="view/css/bootstrap.css">
           <script src="view/js/jquery.js"></script>
 		  <script src="view/js/bootstrapValidator.min.js"></script>
-		  <script src="view/js/ValidarEntidades.js"></script>
+		  <script src="view/js/ValidarEntidad.js"></script>
+		  
+		  
+		  
+		  
+		  	 <script >   
+    function numeros(e){
+    key = e.keyCode || e.which;
+    tecla = String.fromCharCode(key).toLowerCase();
+    letras = "0123456789";
+    especiales = [8,37,39,46];
+ 
+    tecla_especial = false
+    for(var i in especiales){
+    if(key == especiales[i]){
+     tecla_especial = true;
+     break;
+        } 
+    }
+ 
+    if(letras.indexOf(tecla)==-1 && !tecla_especial)
+        return false;
+     }
+    </script > 	
+		  
+		  <script >
+		$(document).ready(function(){
+
+		    // cada vez que se cambia el valor del combo
+		    $("#id_paises").change(function() {
+				
+               // 
+                var $provincias = $("#id_provincias");
+
+               // lo vaciamos
+               
+				///obtengo el id seleccionado
+				
+
+               var id_paises = $(this).val();
+
+
+               $provincias.empty();
+
+               
+               if(id_paises > 0)
+               {
+            	   
+            	   var datos = {
+            			   id_paises : $(this).val()
+                   };
+
+                  $provincias.append("<option value= " +"0" +" > --SIN ESPECIFICAR--</option>");
+            	           
+                   
+                  
+            	   $.post("<?php echo $helper->url("Entidades","devuelveProvincias"); ?>", datos, function(resultProv) {
+
+            		 		$.each(resultProv, function(index, value) {
+            		 		$provincias.append("<option value= " +value.id_provincias +" >" + value.nombre_provincias  + "</option>");	
+                       		 });
+
+            		 		 	 		   
+            		  }, 'json');
+
+
+               }
+               else
+               {
+            	  
+               }
+               
+		    });
+
+
+		   
+		   
+		    
+		}); 
+
+	</script>
+	
+	
+	<script >
+		$(document).ready(function(){
+
+		    // cada vez que se cambia el valor del combo
+		    $("#id_provincias").change(function() {
+				
+               // 
+                var $cantones = $("#id_cantones");
+
+               // lo vaciamos
+               
+				///obtengo el id seleccionado
+				
+
+               var id_provincias = $(this).val();
+
+
+               $cantones.empty();
+
+               
+               if(id_provincias > 0)
+               {
+            	   
+            	   var datos = {
+            			   id_provincias : $(this).val()
+                   };
+
+                  $cantones.append("<option value= " +"0" +" > --SIN ESPECIFICAR--</option>");
+            	           
+                   
+                  
+            	   $.post("<?php echo $helper->url("Entidades","devuelveCanton"); ?>", datos, function(resultCan) {
+
+            		 		$.each(resultCan, function(index, value) {
+            		 		$cantones.append("<option value= " +value.id_cantones +" >" + value.nombre_cantones  + "</option>");	
+                       		 });
+
+            		 		 	 		   
+            		  }, 'json');
+
+
+               }
+               else
+               {
+            	  
+               }
+               
+		    });
+
+
+		   
+		   
+		    
+		}); 
+
+	</script>
+	
+	
+	
+	<script >
+		$(document).ready(function(){
+
+		    // cada vez que se cambia el valor del combo
+		    $("#id_cantones").change(function() {
+				
+               // 
+                var $parroquias = $("#id_parroquias");
+
+               // lo vaciamos
+               
+				///obtengo el id seleccionado
+				
+
+               var id_cantones = $(this).val();
+
+
+               $parroquias.empty();
+
+               
+               if(id_cantones > 0)
+               {
+            	   
+            	   var datos = {
+            			   id_cantones : $(this).val()
+                   };
+
+                  $parroquias.append("<option value= " +"0" +" > --SIN ESPECIFICAR--</option>");
+            	           
+                   
+                  
+            	   $.post("<?php echo $helper->url("Entidades","devuelveParroquia"); ?>", datos, function(resultParro) {
+
+            		 		$.each(resultParro, function(index, value) {
+            		 		$parroquias.append("<option value= " +value.id_parroquias +" >" + value.nombre_parroquias  + "</option>");	
+                       		 });
+
+            		 		 	 		   
+            		  }, 'json');
+
+
+               }
+               else
+               {
+            	  
+               }
+               
+		    });
+
+
+		   
+		   
+		    
+		}); 
+
+	</script>
+	
+	
+	
+	
+	
+	
+		  
 	</head>
     <body class="cuerpo">
     
@@ -35,7 +239,7 @@
 		    <div class="col-xs-6 col-md-6">
 		    <div class="form-group">
                                   <label for="ruc_entidades" class="control-label">Ruc</label>
-                                  <input type="text" class="form-control" id="ruc_entidades" name="ruc_entidades" value="<?php echo $resEdit->ruc_entidades; ?>"  placeholder="Ruc">
+                                  <input type="text" class="form-control" id="ruc_entidades" name="ruc_entidades" value="<?php echo $resEdit->ruc_entidades; ?>" onkeypress="return numeros(event)" placeholder="Ruc">
                                   <span class="help-block"></span>
             </div>
 		    </div>
@@ -49,33 +253,102 @@
             </div>
 			</div>
 	         
+	         
 	        <div class="row">
+	        <div class="col-xs-6 col-md-6">
+		    <div class="form-group">
+                                  <label for="id_paises" class="control-label">País</label>
+                                  <select name="id_paises" id="id_paises"  class="form-control" >
+			  	       					 <option value="" selected="selected">--Seleccione--</option>
+									<?php foreach($resultPais as $resPais) {?>
+										<option value="<?php echo $resPais->id_paises; ?>" <?php if ($resPais->id_paises == $resEdit->id_paises )  echo  ' selected="selected" '  ;  ?> ><?php echo $resPais->nombre_paises; ?> </option>
+			        				<?php } ?>
+									</select> 
+                                   <span class="help-block"></span>
+            </div>
+            </div>
+            
+            <div class="col-xs-6 col-md-6">
+		    <div class="form-group">
+                                  <label for="id_provincias" class="control-label">Provincias</label>
+                                  <select name="id_provincias" id="id_provincias"  class="form-control" >
+			  	       					 <option value="" selected="selected">--Seleccione--</option>
+									<?php foreach($resultProv as $resProv) {?>
+										<option value="<?php echo $resProv->id_provincias; ?>" <?php if ($resProv->id_provincias == $resEdit->id_provincias )  echo  ' selected="selected" '  ;  ?> ><?php echo $resProv->nombre_provincias; ?> </option>
+			        				<?php } ?>
+									</select> 
+                                   <span class="help-block"></span>
+            </div>
+            </div>
+
+	         </div>
+	         
+	         
+	         <div class="row">
+	        <div class="col-xs-6 col-md-6">
+		    <div class="form-group">
+                                  <label for="id_cantones" class="control-label">Cantones</label>
+                                  <select name="id_cantones" id="id_cantones"  class="form-control" >
+			  	       					 <option value="" selected="selected">--Seleccione--</option>
+									<?php foreach($resultCant as $resCant) {?>
+										<option value="<?php echo $resCant->id_cantones; ?>" <?php if ($resCant->id_cantones == $resEdit->id_cantones )  echo  ' selected="selected" '  ;  ?> ><?php echo $resCant->nombre_cantones; ?> </option>
+			        				<?php } ?>
+									</select> 
+                                   <span class="help-block"></span>
+            </div>
+            </div>
+            
+            <div class="col-xs-6 col-md-6">
+		    <div class="form-group">
+                                  <label for="id_parroquias" class="control-label">Parroquias</label>
+                                  <select name="id_parroquias" id="id_parroquias"  class="form-control" >
+			  	       					 <option value="" selected="selected">--Seleccione--</option>
+									<?php foreach($resultParro as $resParro) {?>
+										<option value="<?php echo $resParro->id_parroquias; ?>" <?php if ($resParro->id_parroquias == $resEdit->id_parroquias )  echo  ' selected="selected" '  ;  ?> ><?php echo $resParro->nombre_parroquias; ?> </option>
+			        				<?php } ?>
+									</select> 
+                                   <span class="help-block"></span>
+            </div>
+            </div>
+            </div>
+	         
+ 
+	        
+	        <div class="row">
+	        <div class="col-xs-12 col-md-12">
+		    <div class="form-group">
+                                  <label for="direccion_entidades" class="control-label">Dirección</label>
+                                  <textarea class="form-control" id="direccion_entidades" name="direccion_entidades"  placeholder="Dirección"><?php echo $resEdit->direccion_entidades; ?></textarea>
+                                  <span class="help-block"></span>
+            </div>
+            </div>
+            </div>
+		    
+		    <div class="row">
+		    <div class="col-xs-12 col-md-12">
+		    <div class="form-group">
+                                  <label for="actividad_comercial_entidades" class="control-label">Actividad Comercial</label>
+                                  <input type="text" class="form-control" id="actividad_comercial_entidades" name="actividad_comercial_entidades" value="<?php echo $resEdit->actividad_comercial_entidades; ?>"  placeholder="Actividad Comercial">
+                                  <span class="help-block"></span>
+            </div>
+            </div>
+            </div>
+		    
+		    <div class="row">
 		    <div class="col-xs-6 col-md-6">
 		    <div class="form-group">
                                   <label for="telefono_entidades" class="control-label">Teléfono</label>
-                                  <input type="text" class="form-control" id="telefono_entidades" name="telefono_entidades" value="<?php echo $resEdit->telefono_entidades; ?>"  placeholder="Teléfono">
+                                  <input type="text" class="form-control" id="telefono_entidades" name="telefono_entidades" value="<?php echo $resEdit->telefono_entidades; ?>" onkeypress="return numeros(event)" placeholder="Teléfono">
                                   <span class="help-block"></span>
             </div>
 		    </div>
-		    
 		    <div class="col-xs-6 col-md-6">
 		    <div class="form-group">
-                                  <label for="direccion_entidades" class="control-label">Dirección</label>
-                                  <input type="text" class="form-control" id="direccion_entidades" name="direccion_entidades" value="<?php echo $resEdit->direccion_entidades; ?>"  placeholder="Dirección">
+                                  <label for="logo_entidades" class="control-label">Logo</label>
+                                  <input type="file" class="form-control" id="logo_entidades" name="logo_entidades">
                                   <span class="help-block"></span>
             </div>
-            </div>
-			</div>
-	        
-	        
-	        <div class="row">
-		    <div class="col-xs-6 col-md-6">
-		    <div class="form-group">
-                                  <label for="ciudad_entidades" class="control-label">Ciudad</label>
-                                  <input type="text" class="form-control" id="ciudad_entidades" name="ciudad_entidades" value="<?php echo $resEdit->ciudad_entidades; ?>"  placeholder="Ciudad">
-                                  <span class="help-block"></span>
-            </div>
-		    </div>
+		    </div>	
 		    </div>
          	   
          	   
@@ -113,7 +386,7 @@
 		    <div class="col-xs-6 col-md-6">
 		    <div class="form-group">
                                   <label for="ruc_entidades" class="control-label">Ruc</label>
-                                  <input type="text" class="form-control" id="ruc_entidades" name="ruc_entidades" value=""  placeholder="Ruc">
+                                  <input type="text" class="form-control" id="ruc_entidades" name="ruc_entidades" value="" onkeypress="return numeros(event)" placeholder="Ruc">
                                   <span class="help-block"></span>
             </div>
 		    </div>
@@ -127,41 +400,103 @@
             </div>
 			</div>
 	         
+	       	        
+	        
 	        <div class="row">
+		   
 		    <div class="col-xs-6 col-md-6">
 		    <div class="form-group">
-                                  <label for="telefono_entidades" class="control-label">Teléfono</label>
-                                  <input type="text" class="form-control" id="telefono_entidades" name="telefono_entidades" value=""  placeholder="Teléfono">
-                                  <span class="help-block"></span>
+                                  <label for="id_paises" class="control-label">País</label>
+                                  <select name="id_paises" id="id_paises"  class="form-control" >
+			  	       					 <option value="" selected="selected">--Seleccione--</option>
+									<?php foreach($resultPais as $resPais) {?>
+										<option value="<?php echo $resPais->id_paises; ?>"  ><?php echo $resPais->nombre_paises; ?> </option>
+			        				<?php } ?>
+									</select> 
+                                   <span class="help-block"></span>
             </div>
-		    </div>
-		    
-		    <div class="col-xs-6 col-md-6">
+            </div>
+            
+             <div class="col-xs-6 col-md-6">
+		    <div class="form-group">
+                                  <label for="id_provincias" class="control-label">Provincias</label>
+                                  <select name="id_provincias" id="id_provincias"  class="form-control" >
+			  	       					 <option value="" selected="selected">--Seleccione--</option>
+								  </select> 
+                                   <span class="help-block"></span>
+            </div>
+            </div>
+            </div>
+            
+            
+               
+	        <div class="row">
+		   
+		  <div class="col-xs-6 col-md-6">
+		    <div class="form-group">
+                                  <label for="id_cantones" class="control-label">Cantones</label>
+                                  <select name="id_cantones" id="id_cantones"  class="form-control" >
+			  	       				<option value="" selected="selected">--Seleccione--</option>	
+								  </select> 
+                                   <span class="help-block"></span>
+            </div>
+            </div>
+            
+            
+             <div class="col-xs-6 col-md-6">
+		    <div class="form-group">
+                                  <label for="id_parroquias" class="control-label">Parroquias</label>
+                                  <select name="id_parroquias" id="id_parroquias"  class="form-control" >
+			  	       			    <option value="" selected="selected">--Seleccione--</option> 
+									</select> 
+                                   <span class="help-block"></span>
+            </div>
+            </div>
+            
+            
+            
+            </div>
+            
+		    <div class="row">
+		    		    
+		    <div class="col-xs-12 col-md-12">
 		    <div class="form-group">
                                   <label for="direccion_entidades" class="control-label">Dirección</label>
-                                  <input type="text" class="form-control" id="direccion_entidades" name="direccion_entidades" value=""  placeholder="Dirección">
+                                  <textarea class="form-control" id="direccion_entidades" name="direccion_entidades" value=""  placeholder="Dirección"></textarea>
                                   <span class="help-block"></span>
             </div>
             </div>
 			</div>
-	        
-	        
-	        <div class="row">
-		    <div class="col-xs-6 col-md-6">
+		   
+		    <div class="row">
+		    <div class="col-xs-12 col-md-12">
 		    <div class="form-group">
-                                  <label for="ciudad_entidades" class="control-label">Ciudad</label>
-                                  <input type="text" class="form-control" id="ciudad_entidades" name="ciudad_entidades" value=""  placeholder="Ciudad">
+                                  <label for="actividad_comercial_entidades" class="control-label">Actividad Comercial</label>
+                                  <input type="text" class="form-control" id="actividad_comercial_entidades" name="actividad_comercial_entidades" value=""  placeholder="Actividad Comercial">
+                                  <span class="help-block"></span>
+            </div>
+            </div>
+			</div>
+		   
+		   <div class="row">
+		   <div class="col-xs-6 col-md-6">
+		    <div class="form-group">
+                                  <label for="telefono_entidades" class="control-label">Teléfono</label>
+                                  <input type="text" class="form-control" id="telefono_entidades" name="telefono_entidades" value="" onkeypress="return numeros(event)" placeholder="Teléfono">
                                   <span class="help-block"></span>
             </div>
 		    </div>
+		   
 		    <div class="col-xs-6 col-md-6">
 		    <div class="form-group">
-                                  <label for="logo_entidades" class="control-label">Ciudad</label>
+                                  <label for="logo_entidades" class="control-label">Logo</label>
                                   <input type="file" class="form-control" id="logo_entidades" name="logo_entidades">
                                   <span class="help-block"></span>
             </div>
 		    </div>
-		    </div>	 	
+		    </div>
+		    
+		    	 	
 		    <div class="row">
 		    <div class="col-xs-12 col-md-12 col-lg-12" style="text-align: center;">
 		    <div class="form-group">
@@ -231,20 +566,24 @@
        
        <thead>
            <tr>
-                    <th style="font-size:100%;">Id</th>
+                    <th style="font-size:100%;"></th>
 		    		<th style="font-size:100%;">Ruc</th>
 		    		<th style="font-size:100%;">Nombre</th>
 		    		<th style="font-size:100%;">Telefono</th>
 		    		<th style="font-size:100%;">Direccion</th>
-		    		<th style="font-size:100%;">Ciudad</th>
-		    		<th></th>
-		    		<th></th>
-		    		<th></th>
+		    		<th style="font-size:100%;">Paises</th>
+		    		<th style="font-size:100%;">Provincias</th>
+		    		<th style="font-size:100%;">Cantones</th>
+		    		<th style="font-size:100%;">Parroquias</th>
+		    		<th style="font-size:100%;">Actividad Comercial</th>
+		    		  <th style="font-size:100%;"></th>
+		    		    <th style="font-size:100%;"></th>
+		    		
 	  		</tr>
 	   </thead>
        <tfoot>
        		<tr>
-					<td colspan="10">
+					<td colspan="12">
 						<div id="paging">
 							<ul>
 								<li>
@@ -294,12 +633,18 @@
                
 	   <tbody>
 	   		<tr>
-	   					<td style="font-size:80%;"> <?php echo $res->id_entidades; ?>  </td>
-		                <td style="font-size:80%;" > <?php echo $res->ruc_entidades; ?>     </td> 
+	   					 <td> <input type="image" name="image" src="view/DevuelveImagen.php?id_valor=<?php echo $res->id_entidades; ?>&id_nombre=id_entidades&tabla=entidades&campo=logo_entidades"  alt="<?php echo $res->id_entidades; ?>" width="50" height="55" >      </td>
+		                 <td style="font-size:80%;" > <?php echo $res->ruc_entidades; ?>     </td> 
 		                <td style="font-size:80%;"> <?php echo $res->nombre_entidades; ?>     </td>
 		                <td style="font-size:80%;"> <?php echo $res->telefono_entidades; ?>     </td>  
 		                <td style="font-size:80%;"> <?php echo $res->direccion_entidades; ?>     </td> 
-		                <td style="font-size:80%;"> <?php echo $res->ciudad_entidades; ?>     </td>
+		                 <td style="font-size:80%;"> <?php echo $res->nombre_paises; ?>     </td> 
+		                 <td style="font-size:80%;"> <?php echo $res->nombre_provincias; ?>     </td> 		                 
+		                 <td style="font-size:80%;"> <?php echo $res->nombre_cantones; ?>     </td>
+		                 <td style="font-size:80%;"> <?php echo $res->nombre_parroquias; ?>     </td>
+		                 <td style="font-size:80%;"> <?php echo $res->actividad_comercial_entidades; ?>     </td>
+		                 
+		                
 		                <td>
 			           		<div class="right">
 			                    <a href="<?php echo $helper->url("Entidades","index"); ?>&id_entidades=<?php echo $res->id_entidades; ?>" class="btn btn-warning" style="font-size:65%;">Editar</a>
